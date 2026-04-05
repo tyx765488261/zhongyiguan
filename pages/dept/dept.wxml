@@ -1,0 +1,100 @@
+<view class="dept-page">
+  <!-- 城市 + 搜索 -->
+  <view class="top-bar">
+    <view class="city-row" bindtap="noop">
+      <text class="city-name">{{city}}</text>
+      <text class="city-arrow">▼</text>
+    </view>
+    <view class="search-wrap">
+      <text class="search-icon">⌕</text>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="搜索医生、疾病"
+        placeholder-class="search-ph"
+        value="{{keyword}}"
+        bindinput="onSearchInput"
+      />
+    </view>
+  </view>
+
+  <!-- 科室 / 疾病 Tab -->
+  <view class="main-tabs">
+    <view
+      class="main-tab {{mainTab === 'dept' ? 'main-tab--on' : ''}}"
+      data-tab="dept"
+      bindtap="onMainTab"
+    >科室</view>
+    <view
+      class="main-tab {{mainTab === 'disease' ? 'main-tab--on' : ''}}"
+      data-tab="disease"
+      bindtap="onMainTab"
+    >疾病</view>
+  </view>
+
+  <!-- 双栏 -->
+  <view class="split">
+    <scroll-view class="side" scroll-y>
+      <block wx:if="{{mainTab === 'dept'}}">
+        <view
+          wx:for="{{deptLeft}}"
+          wx:key="index"
+          class="side-item {{leftIndex === index ? 'side-item--on' : ''}}"
+          data-index="{{index}}"
+          bindtap="onLeftTap"
+        >
+          <text class="side-item-text">{{item}}</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view
+          wx:for="{{diseaseDeptLeft}}"
+          wx:key="index"
+          class="side-item {{leftIndex === index ? 'side-item--on' : ''}}"
+          data-index="{{index}}"
+          bindtap="onLeftTap"
+        >
+          <text class="side-item-text">{{item}}</text>
+        </view>
+      </block>
+    </scroll-view>
+
+    <scroll-view class="main" scroll-y>
+      <!-- 疾病模式：右侧只展示 illness 表返回的疾病 -->
+      <block wx:if="{{mainTab === 'disease'}}">
+        <view
+          class="main-row"
+          wx:for="{{diseaseList}}"
+          wx:key="id"
+          bindtap="onDiseaseTap"
+          data-illness-id="{{item.id}}"
+          data-illness-name="{{item.name}}"
+        >
+          <text class="main-row-text">{{item.name}}</text>
+        </view>
+      </block>
+      <!-- 科室模式：右侧直接展示二级科室 -->
+      <block wx:else>
+        <view
+          wx:for="{{rightList}}"
+          wx:key="id"
+          class="main-row"
+          bindtap="onSubTap"
+          data-dept-id="{{item.id}}"
+          data-dept-name="{{item.name}}"
+        >
+          <text class="main-row-text">{{item.name}}</text>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <!-- 健康助理浮层 -->
+  <view class="fab" bindtap="noop">
+    <view class="fab-avatar">医</view>
+    <view class="fab-text-wrap">
+      <text class="fab-line">推荐医生问问</text>
+      <text class="fab-line fab-line--sub">健康助理</text>
+    </view>
+  </view>
+</view>

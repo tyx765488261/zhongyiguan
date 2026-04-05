@@ -1,0 +1,89 @@
+<view class="page">
+  <!-- 顶部标题区 -->
+  <view class="famous-header">
+    <view class="header-inner">
+      <text class="header-title">中医馆名医馆</text>
+      <text class="header-sub">汇聚名老中医 · 传承岐黄国粹</text>
+    </view>
+    <view class="header-pattern"></view>
+  </view>
+
+  <!-- 搜索筛选 -->
+  <view class="search-section">
+    <view class="search-bar">
+      <text class="search-icon">⌕</text>
+      <input class="search-input" placeholder="搜索名医、症状、科室" placeholder-class="ph-style" />
+    </view>
+
+    <!-- 新增科室下拉筛选网格 -->
+    <view class="dept-grid-container">
+      <view class="dept-grid">
+        <view 
+          class="dept-grid-item {{selectedDept === item ? 'dept--active' : ''}}" 
+          wx:for="{{deptFilters}}" 
+          wx:key="*this"
+          bindtap="onDeptSelect"
+          data-dept="{{item}}"
+        >
+          <text>{{item}}</text>
+          <text class="dept-arrow {{expandedDept === item ? 'arrow--up' : ''}}">▾</text>
+        </view>
+      </view>
+
+      <!-- 二级科室展示区 -->
+      <view class="sub-dept-panel" wx:if="{{expandedDept && subDeptMap[expandedDept]}}">
+        <view class="sub-dept-title">{{expandedDept}}二级科室：</view>
+        <view class="sub-dept-list">
+          <view 
+            class="sub-dept-item {{selectedSubDept === sub ? 'sub--active' : ''}}" 
+            wx:for="{{subDeptMap[expandedDept]}}" 
+            wx:for-item="sub" 
+            wx:key="*this"
+            bindtap="onSubDeptSelect"
+            data-sub="{{sub}}"
+          >
+            {{sub}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 名医列表 -->
+  <scroll-view class="famous-list" scroll-y>
+    <block wx:for="{{famousDoctors}}" wx:key="id">
+      <view class="doctor-card" bindtap="onDoctorTap" data-id="{{item.id}}">
+        <view class="card-main">
+          <view class="doctor-avatar">
+            <view class="avatar-box">{{item.avatarText}}</view>
+            <view class="level-tag">{{item.level}}</view>
+          </view>
+          <view class="doctor-info">
+            <view class="info-top">
+              <text class="doctor-name">{{item.name}}</text>
+              <text class="doctor-title">{{item.title}}</text>
+            </view>
+            <view class="doctor-dept">{{item.dept}}</view>
+            <view class="doctor-desc">{{item.desc}}</view>
+          </view>
+          <view class="doctor-arrow">›</view>
+        </view>
+        <view class="card-footer">
+          <view class="footer-tags">
+            <text class="f-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+          <view class="btn-appoint">立即预约</view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+
+  <!-- 健康助理浮层 -->
+  <view class="fab" bindtap="noop">
+    <view class="fab-avatar">医</view>
+    <view class="fab-text-wrap">
+      <text class="fab-line">推荐医生问问</text>
+      <text class="fab-line fab-line--sub">健康助理</text>
+    </view>
+  </view>
+</view>

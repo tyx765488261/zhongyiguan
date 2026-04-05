@@ -1,0 +1,49 @@
+<view class="page page-container">
+  <!-- 用户信息 -->
+  <view class="user-header">
+    <view class="user-info">
+      <view class="avatar-wrap">
+        <view class="avatar-placeholder">馆</view>
+      </view>
+      <view class="info-content">
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <text class="userid">{{userInfo.userId}}</text>
+      </view>
+    </view>
+    <view class="header-pattern"></view>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="menu-section">
+    <view class="menu-list">
+      <block wx:for="{{menuList}}" wx:key="id">
+        <view class="menu-item" bindtap="onMenuTap" data-id="{{item.id}}">
+          <view class="menu-left">
+            <text class="menu-icon">{{item.icon}}</text>
+            <text class="menu-name">{{item.name}}</text>
+          </view>
+          <view class="menu-right">
+            <text class="arrow">›</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 辅助操作 -->
+  <view class="logout-btn" bindtap="handleLogout">退出登录</view>
+  
+  <view class="footer">中医馆 · 传承国粹</view>
+
+  <!-- 底部导航栏 -->
+  <view class="custom-tabbar">
+    <view class="tabbar-item" bindtap="goToHome">
+      <text class="tabbar-icon">🏠</text>
+      <text class="tabbar-text">首页</text>
+    </view>
+    <view class="tabbar-item tabbar-item--active">
+      <text class="tabbar-icon">👤</text>
+      <text class="tabbar-text">个人中心</text>
+    </view>
+  </view>
+</view>

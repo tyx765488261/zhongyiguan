@@ -1,0 +1,123 @@
+.page {
+  min-height: 100vh;
+  background-color: #f5f0e8;
+}
+
+.user-header {
+  position: relative;
+  background: linear-gradient(145deg, #1a4d3e 0%, #2d6b52 100%);
+  padding: 80rpx 40rpx 100rpx;
+  color: #fff;
+  overflow: hidden;
+}
+
+.header-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: radial-gradient(circle at 20% 30%, #fff 0%, transparent 45%);
+}
+
+.user-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrap {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 4rpx solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 32rpx;
+}
+
+.avatar-placeholder {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.userid {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-section {
+  margin: -40rpx 24rpx 0;
+  position: relative;
+  z-index: 2;
+}
+
+.menu-list {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 0 32rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.05);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 36rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 36rpx;
+  margin-right: 24rpx;
+}
+
+.menu-name {
+  font-size: 30rpx;
+  color: #2c3e36;
+}
+
+.arrow {
+  font-size: 36rpx;
+  color: #ccc;
+}
+
+.logout-btn {
+  margin: 60rpx 24rpx 0;
+  background: #fff;
+  color: #e74c3c;
+  text-align: center;
+  padding: 28rpx 0;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+}
+
+.footer {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 60rpx;
+}

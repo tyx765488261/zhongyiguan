@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: zhongyiguan-back
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 连接本地 test 库
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启控制台 SQL 日志
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto # 数据库自增 ID

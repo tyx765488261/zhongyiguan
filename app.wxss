@@ -1,0 +1,54 @@
+page {
+  background-color: #f5f0e8;
+  color: #333;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* 自定义底部导航栏 */
+.custom-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.05);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 999;
+}
+
+.tabbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.tabbar-icon {
+  font-size: 36rpx;
+  margin-bottom: 4rpx;
+}
+
+.tabbar-text {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.tabbar-item--active .tabbar-text {
+  color: #1a4d3e;
+  font-weight: 600;
+}
+
+.tabbar-item--active .tabbar-icon {
+  color: #1a4d3e;
+}
+
+/* 页面容器内边距，防止被底部栏遮挡 */
+.page-container {
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+}

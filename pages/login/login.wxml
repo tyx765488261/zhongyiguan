@@ -1,0 +1,63 @@
+<view class="login-page">
+  <view class="back-btn" bindtap="goBack">✕</view>
+  
+  <view class="logo-section">
+    <view class="logo-box">馆</view>
+    <text class="app-name">中医馆</text>
+    <text class="app-slogan">传承岐黄之术，护佑百姓安康</text>
+  </view>
+
+  <view class="login-card">
+    <!-- 登录方式切换 -->
+    <view class="login-tabs">
+      <view 
+        class="login-tab {{loginType === 'wechat' ? 'login-tab--active' : ''}}" 
+        bindtap="switchTab" 
+        data-type="wechat"
+      >微信一键登录</view>
+      <view 
+        class="login-tab {{loginType === 'phone' ? 'login-tab--active' : ''}}" 
+        bindtap="switchTab" 
+        data-type="phone"
+      >手机号登录</view>
+    </view>
+
+    <!-- 微信登录面板 -->
+    <view class="login-panel" wx:if="{{loginType === 'wechat'}}">
+      <button class="btn-wechat" bindtap="handleWechatLogin">
+        <text>登录</text>
+      </button>
+      <text class="login-hint">授权即代表同意《用户服务协议》与《隐私政策》</text>
+    </view>
+
+    <!-- 手机登录面板 -->
+    <view class="login-panel" wx:if="{{loginType === 'phone'}}">
+      <view class="input-group">
+        <input 
+          class="login-input" 
+          type="number" 
+          maxlength="11" 
+          placeholder="请输入手机号" 
+          bindinput="onInputPhone"
+        />
+      </view>
+      <view class="input-group">
+        <input 
+          class="login-input" 
+          type="number" 
+          maxlength="6" 
+          placeholder="请输入验证码" 
+          bindinput="onInputCode"
+        />
+        <view class="code-btn {{counting ? 'code-btn--disabled' : ''}}" bindtap="sendCode">
+          {{counting ? count + 's' : '获取验证码'}}
+        </view>
+      </view>
+      <button class="btn-primary" bindtap="handlePhoneLogin">立即登录</button>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <text>中医馆 · 传承国粹</text>
+  </view>
+</view>

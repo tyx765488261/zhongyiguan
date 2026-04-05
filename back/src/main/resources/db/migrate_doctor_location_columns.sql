@@ -1,0 +1,3 @@
+-- 若历史库仍为 localtion_id / localtion_name，可执行以下语句与 Java 实体对齐（执行前请备份）
+-- ALTER TABLE `doctor` CHANGE COLUMN `localtion_id` `location_id` varchar(32) DEFAULT NULL COMMENT '地级市区划编码';
+-- ALTER TABLE `doctor` CHANGE COLUMN `localtion_name` `location_name` varchar(64) DEFAULT NULL COMMENT '地级市名称';

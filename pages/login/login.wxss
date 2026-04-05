@@ -1,0 +1,154 @@
+.login-page {
+  min-height: 100vh;
+  background-color: #f5f0e8;
+  padding: 60rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.back-btn {
+  font-size: 40rpx;
+  color: #999;
+  padding: 20rpx 0;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60rpx;
+  margin-bottom: 60rpx;
+}
+
+.logo-box {
+  width: 140rpx;
+  height: 140rpx;
+  background: #1a4d3e;
+  color: #fff;
+  font-size: 60rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 32rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 12rpx 32rpx rgba(26, 77, 62, 0.2);
+}
+
+.app-name {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #1a4d3e;
+  margin-bottom: 12rpx;
+}
+
+.app-slogan {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.login-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 40rpx;
+}
+
+.login-tabs {
+  display: flex;
+  border-bottom: 1rpx solid #eee;
+  margin-bottom: 60rpx;
+}
+
+.login-tab {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: #999;
+  position: relative;
+}
+
+.login-tab--active {
+  color: #1a4d3e;
+  font-weight: 600;
+}
+
+.login-tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1rpx;
+  left: 20%;
+  right: 20%;
+  height: 4rpx;
+  background: #1a4d3e;
+}
+
+.login-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-wechat {
+  background: #1a4d3e;
+  color: #fff;
+  border-radius: 48rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-bottom: 32rpx;
+}
+
+.login-hint {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+  padding: 24rpx 0;
+  margin-bottom: 32rpx;
+}
+
+.login-input {
+  flex: 1;
+  height: 60rpx;
+  font-size: 30rpx;
+}
+
+.code-btn {
+  font-size: 28rpx;
+  color: #1a4d3e;
+  padding-left: 24rpx;
+  border-left: 1rpx solid #eee;
+}
+
+.code-btn--disabled {
+  color: #ccc;
+}
+
+.btn-primary {
+  background: #1a4d3e;
+  color: #fff;
+  border-radius: 48rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 24rpx;
+  color: #ccc;
+  margin-top: 40rpx;
+}

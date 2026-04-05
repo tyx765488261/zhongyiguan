@@ -1,0 +1,118 @@
+<view class="page page-container">
+  <!-- 医生基础信息 -->
+  <view class="doctor-header">
+    <view class="header-main">
+      <view class="doctor-avatar">
+        <view class="avatar-box">{{doctor.avatarText}}</view>
+        <view class="auth-tag">已认证 ›</view>
+      </view>
+      <view class="doctor-info">
+        <view class="name-row">
+          <text class="doctor-name">{{doctor.name}}</text>
+          <view class="follow-btn">+ 关注</view>
+        </view>
+        <view class="title-row">
+          <text>{{doctor.title}}</text>
+          <text class="split-line">|</text>
+          <text>中医</text>
+          <text class="split-line">|</text>
+          <text>{{doctor.dept}}</text>
+        </view>
+        <view class="stats-row">
+          <text class="stat-item">粉丝 <text class="stat-num">{{doctor.fans}}</text></text>
+          <text class="stat-item">口碑数 <text class="stat-num">{{doctor.reputation}}</text></text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 擅长领域 -->
+    <view class="specialty-section">
+      <text class="specialty-label">擅长领域</text>
+      <text class="specialty-content">{{doctor.specialty}}</text>
+      <text class="more-link">了解医生 ›</text>
+    </view>
+  </view>
+
+  <!-- 门诊挂号 -->
+  <view class="section-title">门诊挂号</view>
+  <view class="appoint-section">
+    <!-- 日期选择 -->
+    <scroll-view class="date-scroll" scroll-x>
+      <view class="date-card {{selectedDate === index ? 'date--active' : ''}}" 
+            wx:for="{{dateList}}" wx:key="index" bindtap="onDateTap" data-index="{{index}}">
+        <text class="date-val">{{item.day}}</text>
+        <text class="date-week">{{item.week}}</text>
+        <text class="date-status">余号 {{item.remain}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 挂号详情 -->
+    <view class="appoint-list">
+      <view class="appoint-group">
+        <view class="group-header">
+          <view class="location-info">
+            <text class="location-name">{{doctor.location}}</text>
+            <text class="time-tag">上午</text>
+          </view>
+          <text class="address">{{doctor.address}}</text>
+          <text class="source-info">剩余 <text class="source-num">30</text> 号源</text>
+        </view>
+
+        <view class="time-slot" wx:for="{{timeSlots}}" wx:key="index">
+          <view class="slot-left">
+            <text class="slot-time">上午 {{item.time}}</text>
+            <text class="slot-remain">剩余 {{item.remain}} 号源</text>
+          </view>
+          <view class="slot-right">
+            <text class="slot-price">¥{{item.price}}</text>
+            <view class="btn-sub-appoint" bindtap="onAppoint">
+              <text class="icon-location">⊕</text> 分院看诊
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 患者评价 -->
+  <view class="section-title">患者评价</view>
+  <view class="review-section">
+    <view class="review-card" wx:for="{{reviews}}" wx:key="id">
+      <view class="review-user">
+        <view class="user-avatar">{{item.userInitials}}</view>
+        <view class="user-info">
+          <text class="user-name">{{item.userName}}</text>
+          <view class="rating">
+            <text class="star" wx:for="{{5}}" wx:for-item="s" wx:key="*this">{{s < item.rating ? '★' : '☆'}}</text>
+          </view>
+        </view>
+        <text class="review-date">{{item.date}}</text>
+      </view>
+      <view class="review-content">{{item.content}}</view>
+      <view class="review-tags">
+        <text class="r-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer-actions">
+    <view class="action-item" bindtap="noop">
+      <view class="action-icon icon-share">📤</view>
+      <text>推荐医生</text>
+    </view>
+    <view class="action-item" bindtap="noop">
+      <view class="action-icon icon-poster">🖼️</view>
+      <text>分享海报</text>
+    </view>
+  </view>
+
+  <!-- 健康助理浮层 -->
+  <view class="fab" bindtap="noop">
+    <view class="fab-avatar">医</view>
+    <view class="fab-text-wrap">
+      <text class="fab-line">有问题问问AI</text>
+      <text class="fab-line fab-line--sub">健康助理</text>
+    </view>
+  </view>
+</view>

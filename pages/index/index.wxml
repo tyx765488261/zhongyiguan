@@ -1,0 +1,65 @@
+<view class="page page-container">
+  <!-- 顶部横幅区（静态，无外链图片） -->
+  <view class="banner">
+    <view class="banner-pattern"></view>
+    <view class="banner-inner">
+      <text class="banner-tag">传承 · 辨证 · 调养</text>
+      <text class="banner-title">岐黄之术</text>
+      <text class="banner-sub">以传统医学护佑日常健康</text>
+    </view>
+  </view>
+
+  <!-- 服务入口 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="section-title-line"></text>
+      <text>便民服务</text>
+      <text class="section-title-line"></text>
+    </view>
+    <view class="entry-grid">
+      <block wx:for="{{entries}}" wx:key="id">
+        <view class="entry-item" bindtap="onEntryTap" data-id="{{item.id}}">
+          <view class="entry-icon">{{item.icon}}</view>
+          <text class="entry-name">{{item.name}}</text>
+          <text class="entry-desc">{{item.desc}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 资讯列表（静态数据） -->
+  <view class="section section--news">
+    <view class="section-head">
+      <text class="section-head-title">健康资讯</text>
+      <text class="section-head-more">更多</text>
+    </view>
+    <view class="news-list">
+      <block wx:for="{{articles}}" wx:key="id">
+        <view class="news-card">
+          <view class="news-main">
+            <text class="news-title">{{item.title}}</text>
+            <view class="news-meta">
+              <text class="news-tag">{{item.tag}}</text>
+              <text class="news-date">{{item.date}}</text>
+            </view>
+          </view>
+          <view class="news-arrow">›</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="footer">中医馆 · 传承国粹</view>
+
+  <!-- 底部导航栏 -->
+  <view class="custom-tabbar">
+    <view class="tabbar-item tabbar-item--active">
+      <text class="tabbar-icon">🏠</text>
+      <text class="tabbar-text">首页</text>
+    </view>
+    <view class="tabbar-item" bindtap="goToUser">
+      <text class="tabbar-icon">👤</text>
+      <text class="tabbar-text">个人中心</text>
+    </view>
+  </view>
+</view>

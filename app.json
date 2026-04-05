@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/user",
+    "pages/login/login",
+    "pages/dept/dept",
+    "pages/doctor-list/doctor-list",
+    "pages/famous-doctor/famous-doctor",
+    "pages/doctor-home/doctor-home"
+  ],
+  "window": {
+    "navigationBarTitleText": "中医馆",
+    "navigationBarBackgroundColor": "#1a4d3e",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f0e8",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
