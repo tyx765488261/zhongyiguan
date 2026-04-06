@@ -4,27 +4,25 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zhongyiguan.back.entity.Department;
 import com.zhongyiguan.back.entity.Doctor;
 import com.zhongyiguan.back.entity.DoctorQueryPO;
-import com.zhongyiguan.back.entity.Schedul;
 import com.zhongyiguan.back.mapper.DepartmentMapper;
 import com.zhongyiguan.back.mapper.DoctorMapper;
-import com.zhongyiguan.back.mapper.SchedulMapper;
 import com.zhongyiguan.back.service.IDoctorService;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DoctorServiceImpl implements IDoctorService {
 
-    @Resource
-    private DoctorMapper doctorMapper;
-    @Resource
-    private DepartmentMapper departmentMapper;
-    @Resource
-    private SchedulMapper schedulMapper;
+    private final DoctorMapper doctorMapper;
+    private final DepartmentMapper departmentMapper;
+
+    public DoctorServiceImpl(DoctorMapper doctorMapper, DepartmentMapper departmentMapper) {
+        this.doctorMapper = doctorMapper;
+        this.departmentMapper = departmentMapper;
+    }
 
     @Override
     public List<Doctor> list(String departmentId) {
@@ -38,38 +36,24 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     public List<DoctorQueryPO> queryByCondition(String departmentId, String illnessId, String keyword,
-                                                  String locationId, String visitMode,String schemdulTime) {
-        List<Doctor> list = listByDepartmentAndLocation(departmentId, keyword, locationId, visitMode);
-        if(schemdulTime!=null){
-            LambdaQueryWrapper<Schedul> wrapper = new LambdaQueryWrapper<>();
-            List<LocalDateTime> datalist = getData(schemdulTime);
-            wrapper.ge(Schedul::getStartTime, datalist.get(0))   // >= 当天开始
-                    .lt(Schedul::getStartTime, datalist.get(1));    // < 第二天开始
-
-            List<Schedul> schedulList = schedulMapper.selectList(wrapper);
-            Map<String, String> map = schedulList.stream().collect(Collectors.toMap(Schedul::getDoctorId, Schedul::getDoctorId));
-            list = list.stream().filter(doctor -> map.containsKey(doctor.getDoctorId())).toList();
+                                                  String locationId, String visitMode) {
+        // 科室页直接按二级科室进入医生列表时，不带 illnessId：
+        // 这里直接走 doctor 单表查询，避免多表 left join 造成医生重复。
+        if (illnessId == null || illnessId.isBlank()) {
+            List<DoctorQueryPO> list = listByDepartmentAndLocation(departmentId, locationId, visitMode).stream()
+                    .map(this::toDoctorQueryPO)
+                    .toList();
+            return deduplicateByDoctorId(list);
         }
-        List<DoctorQueryPO> polist = list.stream().map(this::toDoctorQueryPO).toList();
-        return polist;
+
+        String visitModeSql = normalizeVisitModeForSql(visitMode);
+        List<Map<String, Object>> rows =
+                doctorMapper.selectDoctorByCondition(departmentId, illnessId, keyword, locationId, visitModeSql);
+        List<DoctorQueryPO> list = rows.stream().map(this::toDoctorQueryPO).toList();
+        return deduplicateByDoctorId(list);
     }
 
-    private List<LocalDateTime> getData(String dateStr){
-        LocalDate date = LocalDate.parse(dateStr);
-        ZoneId shanghaiZone = ZoneId.of("Asia/Shanghai");
-        ZonedDateTime shanghaiStart = date.atStartOfDay(shanghaiZone);
-        ZonedDateTime shanghaiEnd = date.plusDays(1).atStartOfDay(shanghaiZone);
-
-// 转换为 UTC
-        LocalDateTime utcStart = shanghaiStart.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-        LocalDateTime utcEnd = shanghaiEnd.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-        List<LocalDateTime> list = new ArrayList<>();
-        list.add(utcStart);
-        list.add(utcEnd);
-        return list;
-    }
-
-    private List<Doctor> listByDepartmentAndLocation(String departmentId, String keyword, String locationId, String visitMode) {
+    private List<Doctor> listByDepartmentAndLocation(String departmentId, String locationId, String visitMode) {
         LambdaQueryWrapper<Doctor> w = new LambdaQueryWrapper<>();
         if (departmentId != null && !departmentId.isBlank()) {
             w.eq(Doctor::getDepartmentId, departmentId);
@@ -77,16 +61,7 @@ public class DoctorServiceImpl implements IDoctorService {
         if (locationId != null && !locationId.isBlank()) {
             w.eq(Doctor::getLocationId, locationId);
         }
-        if (visitMode != null && !visitMode.isBlank()) {
-            if(visitMode.equals("online")){
-                w.eq(Doctor::getOnline, "true");
-            }else if(visitMode.equals("offline")){
-                w.eq(Doctor::getOffline, "true");
-            }
-        }
-        if (keyword != null && !keyword.isBlank()) {
-            w.like(Doctor::getDoctorName, keyword);
-        }
+        applyVisitModeFilter(w, visitMode);
         return doctorMapper.selectList(w);
     }
 

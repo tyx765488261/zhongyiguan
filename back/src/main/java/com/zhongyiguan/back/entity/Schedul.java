@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Data
 @TableName("schedul")
 public class Schedul {
-    @TableId(value = "id", type = IdType.INPUT)
-    private String id;
+    @TableId(value = "schedul_id", type = IdType.INPUT)
+    private String schedulId;
 
     @TableField("start_time")
     private LocalDateTime startTime;

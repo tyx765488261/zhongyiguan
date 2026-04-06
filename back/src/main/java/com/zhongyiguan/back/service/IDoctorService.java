@@ -9,7 +9,7 @@ public interface IDoctorService {
     List<Doctor> list(String departmentId);
 
     List<DoctorQueryPO> queryByCondition(String departmentId, String illnessId, String keyword, String locationId,
-                                         String visitMode,String schemdulTime);
+                                         String visitMode);
 
     Doctor get(String id);
 

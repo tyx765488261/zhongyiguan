@@ -32,9 +32,8 @@ public class DoctorController {
                                      @RequestParam(value = "illnessId", required = false) String illnessId,
                                      @RequestParam(value = "keyword", required = false) String keyword,
                                      @RequestParam(value = "locationId", required = false) String locationId,
-                                     @RequestParam(value = "visitMode", required = false) String visitMode,
-                                     @RequestParam(value = "schemdulTime", required = false) String schemdulTime) {
-        return doctorService.queryByCondition(departmentId, illnessId, keyword, locationId, visitMode,schemdulTime);
+                                     @RequestParam(value = "visitMode", required = false) String visitMode) {
+        return doctorService.queryByCondition(departmentId, illnessId, keyword, locationId, visitMode);
     }
 
     @GetMapping("/{id}")
